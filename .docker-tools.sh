@@ -50,3 +50,11 @@ docker-tools() {
             esac;;
     esac
 }
+
+dockersh () {
+	# Drops to bash shell in container from anywhere in compose subdir
+	container=$1
+	: ${container:=1} # set default of 1 if null
+	p="p"
+	docker exec -it $(docker-compose ps -q|sed -n $container$p) /bin/bash;
+}
